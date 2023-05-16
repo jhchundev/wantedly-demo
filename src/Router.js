@@ -1,0 +1,18 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProjectList from './pages/projectlist/ProjectList';
+// import Login from './pages/login/Login';
+// import MainRouter from './MainRouter';
+
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {<Route path="/projects" element={<ProjectList />} />}
+        {/* <Route path="/*" element={<MainRouter />} /> */}
+        {/* <Route path="/login" element={<Login />} /> */}
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default Router;
