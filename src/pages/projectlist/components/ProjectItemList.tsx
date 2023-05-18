@@ -1,23 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLazyQuery, gql } from "@apollo/client";
+import ProjectCard from "./ProjectCard";
+import { ProjectData, ProjectFilterInput } from "../../../types/ProjectType";
+import Search from "./Search";
 // import Search from "./Search";
-
-interface Project {
-	id: number;
-	title: string;
-	coverImageUrl: string;
-	lookingFor: string;
-	hiringType: string;
-	howDescription: string;
-	description: string;
-	publishedAt: string;
-	updatedAt: string;
-}
-
-interface ProjectFilterInput {
-    keyword?: string;
-    lookingFor?: string;
-  }
 
 interface Staffing {
 	id: number;
@@ -29,10 +16,6 @@ interface User {
 	id: number;
 	name: string;
 	avatar: string;
-}
-
-interface ProjectData {
-	projects: Project[];
 }
 
 const GET_PROJECTS = gql`
@@ -49,40 +32,26 @@ const GET_PROJECTS = gql`
 	}
 `;
 
-const Description = ({ text }: { text: string }) => {
-	return (
-		<p>
-			{text.split("\n").map((txt) => (
-				<>
-					{txt}
-					<br />
-				</>
-			))}
-		</p>
-	);
-};
-
 const ProjectItemList: React.FC = () => {
+	const location = useLocation();
+	const navigate = useNavigate();
+	const initialFilter: ProjectFilterInput = {
+		keyword: new URLSearchParams(location.search).get("keyword") || "",
+		lookingFor: new URLSearchParams(location.search).get("lookingFor") || "",
+	};
 
-    const [projectFilterInput, setProjectFilterInput] = useState<ProjectFilterInput>({});
-    const [getProjects, { loading, error, data }] = useLazyQuery<ProjectData>(GET_PROJECTS);
+	const [projectFilterInput, setProjectFilterInput] =
+		useState<ProjectFilterInput>(initialFilter);
+	const [getProjects, { loading, error, data }] =
+		useLazyQuery<ProjectData>(GET_PROJECTS);
 
-    const handleSearch = () => {
-        const filter: ProjectFilterInput = {};
-        if (projectFilterInput.keyword) {
-          filter.keyword = projectFilterInput.keyword;
-        }
-        getProjects({ variables: {  filter } });
-    };
+	// useEffect(() => {
+	// 	getProjects({ variables: { filter: projectFilterInput } });
+	// }, [projectFilterInput]);
 
-    const handleKeywordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setProjectFilterInput((prevFilters) => ({ ...prevFilters, keyword: event.target.value }));
-    };
-
-    const handleLookingForChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setProjectFilterInput((prevFilters) => ({ ...prevFilters, lookingFor: event.target.value }));
-    };
-
+	const handleSearch = (filter: ProjectFilterInput) => {
+		getProjects({ variables: { filter } });
+	};
 
 	if (loading) {
 		return <div>Loading...</div>;
@@ -94,25 +63,9 @@ const ProjectItemList: React.FC = () => {
 
 	return (
 		<div>
-			<div>
-                <input type="text" value={projectFilterInput.keyword || ''} onChange={handleKeywordChange} placeholder="タイトルで検索" />
-                <input type="text" value={projectFilterInput.lookingFor || ''} onChange={handleLookingForChange} placeholder="雇用形態で検索" />
-                <button onClick={handleSearch}>検索</button>
-            </div>
-			{data?.projects.map((projects) => (
-				<div key={projects.title}>
-					<h3>{projects.title}</h3>
-					<img
-						src={projects.coverImageUrl}
-						alt={projects.title}
-						style={{ width: "200px", height: "auto" }}
-					/>
-					<p>募集職種: {projects.lookingFor}</p>
-					<p>雇用形態: {projects.hiringType}</p>
-					<Description text={projects.description}></Description>
-					<p>公開日: {projects.publishedAt}</p>
-					<p>更新日: {projects.updatedAt}</p>
-				</div>
+			<Search onSearch={handleSearch} />
+			{data?.projects.map((project) => (
+				<ProjectCard project={project} />
 			))}
 		</div>
 	);

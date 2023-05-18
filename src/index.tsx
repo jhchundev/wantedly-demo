@@ -4,21 +4,23 @@ import './index.css';
 import App from './App';
 import { ApolloProvider } from "@apollo/client";
 import reportWebVitals from './reportWebVitals';
+import GlobalStyle from './styles/GlobalStyle';
 import apolloClient from "./apollo";
 import theme from './styles/theme';
 import { ThemeProvider } from 'styled-components';
 import Router from './Router';
-
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={theme}>
-        <Router />
-      </ThemeProvider>
+    <React.StrictMode>
+        <ThemeProvider theme={theme}>
+          <Router />
+        </ThemeProvider>
+    </React.StrictMode>    
   </ApolloProvider>
   
 );
