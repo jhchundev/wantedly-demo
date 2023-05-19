@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import {
+	Container,
+	Row,
+	Col,
+	ToggleButton,
+	ToggleButtonGroup,
+} from "react-bootstrap";
+import NavBar from "../../components/navbar/NavBar";
+import ProjectList from "./ProjectList";
+import { ProjectData, ProjectFilterInput } from "../../types/ProjectType";
 import { useLazyQuery, gql } from "@apollo/client";
-import ProjectCard from "./ProjectCard";
-import { ProjectData, ProjectFilterInput } from "../../../types/ProjectType";
-import Search from "./Search";
-// import Search from "./Search";
-
-interface Staffing {
-	id: number;
-	user: User;
-	userId: number;
-}
-
-interface User {
-	id: number;
-	name: string;
-	avatar: string;
-}
+import Search from "./components/Search";
 
 const GET_PROJECTS = gql`
 	query getProjects($filter: ProjectFilterInput) {
@@ -32,7 +27,7 @@ const GET_PROJECTS = gql`
 	}
 `;
 
-const ProjectItemList: React.FC = () => {
+const ProjectLayout = ({ children }: { children: any }) => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const initialFilter: ProjectFilterInput = {
@@ -45,30 +40,37 @@ const ProjectItemList: React.FC = () => {
 	const [getProjects, { loading, error, data }] =
 		useLazyQuery<ProjectData>(GET_PROJECTS);
 
-	// useEffect(() => {
-	// 	getProjects({ variables: { filter: projectFilterInput } });
-	// }, [projectFilterInput]);
+	useEffect(() => {
+		getProjects({ variables: { filter: projectFilterInput } });
+	}, [projectFilterInput]);
 
 	const handleSearch = (filter: ProjectFilterInput) => {
 		getProjects({ variables: { filter } });
 	};
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <div>ロードしています...</div>;
 	}
 
 	if (error) {
 		return <div>Error: {error.message}</div>;
 	}
-
 	return (
-		<div>
-			<Search onSearch={handleSearch} />
-			{data?.projects.map((project) => (
-				<ProjectCard project={project} />
-			))}
-		</div>
+		<>
+			<NavBar />
+			<Container fluid>
+				<Row>
+					<Col sm={3} className="bg-light">
+						<Search onSearch={handleSearch} />
+					</Col>
+					<Col sm={9}>
+						<Row></Row>
+						<ProjectList />
+					</Col>
+				</Row>
+			</Container>
+		</>
 	);
 };
 
-export default ProjectItemList;
+export default ProjectLayout;

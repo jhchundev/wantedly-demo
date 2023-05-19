@@ -1,19 +1,19 @@
 import React from 'react';
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="white" variant="white" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          <img
-            src="/logo.png" // Replace with your logo image path
-            alt="Logo"
+          <Image
+            src="https://wantedly-assets.wantedly.com/static/logo/mark-color-LightBG.svg"
+            alt="Wantedly"
             height="30"
             className="d-inline-block align-top"
           />{' '}
-          My Website
+          Wantedly
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav" className="justify-content-end">

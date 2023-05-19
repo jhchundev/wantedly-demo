@@ -13,14 +13,12 @@ const Footer = () => {
           <FooterTop>
             <FooterTopLeft>
               <img
-                src="https://img4.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202108/12/kukinews/20210812102806613yney.jpg"
+                src="https://wantedly-assets.wantedly.com/static/logo/logo-color-LightBG.svg"
                 alt="logo"
               />
               <TopMenu>
-                <MenuList>기업소개</MenuList>
-                <MenuList>이용약관</MenuList>
-                <MenuList>개인정보 처리방침</MenuList>
-                <MenuList>고객센터</MenuList>
+                <MenuList>会社紹介</MenuList>
+                <MenuList>プライバシーポリシ</MenuList>
               </TopMenu>
             </FooterTopLeft>
             <IconBox>
@@ -40,10 +38,7 @@ const Footer = () => {
           </FooterTop>
           <FooterBottom>
             <BottomDescription>
-              (주)원트어스 | 서울특별시 강남구 | 통신판매번호 :
-              2022-서울강남-0000 <br />
-              유료직업소개사업등록번호 : 제2022-0000000-00-0-00000호 |
-              사업자등록번호 : 123-4567-8910 | 02-123-4567 <br /> © WantUS, Inc.
+               © Wantedly, Inc.
             </BottomDescription>
           </FooterBottom>
         </FooterContainer>
