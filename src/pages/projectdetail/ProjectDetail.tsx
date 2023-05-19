@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Container, Row, Col, Image, Breadcrumb, Modal } from "react-bootstrap";
+import {
+	Container,
+	Row,
+	Col,
+	Image,
+	Breadcrumb,
+	Modal,
+	Button,
+} from "react-bootstrap";
 import { gql } from "@apollo/client";
 import { ProjectDetailData } from "../../types/ProjectDetailType";
 import Staffings from "./components/Staffing";
@@ -110,7 +118,7 @@ const ProjectDetail: React.FC = () => {
 					<button onClick={handleCloseModal}>Close</button>
 				</Modal.Footer>
 			</Modal>
-            <Row>
+			<Row>
 				<Col>
 					<Row>
 						<Staffings staffings={project.staffings} />
@@ -148,6 +156,11 @@ const ProjectDetail: React.FC = () => {
 						<Description>{project.description}</Description>
 					</p>
 				</Col>
+			</Row>
+			<Row>
+				<Link to={`/projects`}>
+					<Button variant="secondary">一覧に戻る</Button>
+				</Link>
 			</Row>
 		</Container>
 	);

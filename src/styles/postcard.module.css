@@ -90,3 +90,15 @@ body {
   .search-button:focus {
     outline: none;
   }
+
+  .image-modal {
+    width: fit-content;
+    max-width: 100%;
+  }
+  
+  .original-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  

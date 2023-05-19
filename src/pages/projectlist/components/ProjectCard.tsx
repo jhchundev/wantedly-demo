@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Project } from "../../../types/ProjectType";
 import { Link } from "react-router-dom";
 import { Card, Button, Modal, Image, Row, Col } from "react-bootstrap";
+import "../../../styles/postcard.module.css";
 
 const Description = ({ children }: { children: string }) => {
 	return (
@@ -43,7 +44,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
 	return (
 		<Card key={project.id} className="my-4">
 			<Card.Header>
-				<Link to={`/projects/${project.id}`} key={project.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+				<Link
+					to={`/projects/${project.id}`}
+					key={project.id}
+					style={{ textDecoration: "none", color: "inherit" }}
+				>
 					<h4>{project.title}</h4>
 				</Link>
 			</Card.Header>
@@ -56,18 +61,34 @@ const ProjectCard = ({ project }: { project: Project }) => {
 							alt={project.title}
 							onClick={handleOpenModal}
 							className="img-fluid project-image"
-							style={{ width: "400px", height: "auto" }}
+							style={{ width: "500px", height: "auto" }}
 						/>
 					</div>
 					<div className="ml-4 flex-grow-1">
 						<div className="mb-2">
-							<Card.Text>募集職種: {project.lookingFor}</Card.Text>
+							<Card.Text>
+								<strong>募集職種:</strong>
+								<ul>
+									<li>{project.lookingFor}</li>
+								</ul>
+							</Card.Text>
 						</div>
 						<div className="mb-2">
-							<Card.Text>雇用形態: {project.hiringType}</Card.Text>
+							<Card.Text>
+								<strong>雇用形態:</strong>
+								<ul>
+									<li>{project.hiringType}</li>
+								</ul>
+							</Card.Text>
 						</div>
 						<div className="mt-2">
-							<Card.Text>公開日: {formatDate(project.publishedAt)}</Card.Text>
+							<Card.Text>
+								<strong>公開日: </strong>
+
+								<ul>
+									<li>{formatDate(project.publishedAt)}</li>
+								</ul>
+							</Card.Text>
 						</div>
 					</div>
 				</div>
@@ -94,12 +115,22 @@ const ProjectCard = ({ project }: { project: Project }) => {
 					</Col>
 				</Row>
 			</Card.Body>
-			<Modal show={showModal} onHide={handleCloseModal}>
+			<Modal
+				show={showModal}
+				onHide={handleCloseModal}
+				size="xl"
+				className="image-modal"
+			>
 				<Modal.Header closeButton>
 					<Modal.Title>{project.title}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Image src={project.coverImageUrl} alt={project.title} fluid />
+					<Image
+						src={project.coverImageUrl}
+						alt={project.title}
+						className="original-image"
+						fluid
+					/>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleCloseModal}>
