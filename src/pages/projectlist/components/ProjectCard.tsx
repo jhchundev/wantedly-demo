@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Project } from "../../../types/ProjectType";
 import { Link } from "react-router-dom";
-import { Card, Button, Modal, Image, Row, Col } from "react-bootstrap";
+import { Card, Button, Modal, Image, Row, Col, Badge } from "react-bootstrap";
 import "../../../styles/postcard.module.css";
 
 const Description = ({ children }: { children: string }) => {
@@ -43,101 +43,59 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
 	return (
 		<Card key={project.id} className="my-4">
-			<Card.Header>
-				<Link
-					to={`/projects/${project.id}`}
-					key={project.id}
-					style={{ textDecoration: "none", color: "inherit" }}
-				>
-					<h4>{project.title}</h4>
-				</Link>
-			</Card.Header>
 			<Card.Body>
-				<div className="d-flex flex-row">
-					<div>
+				<Row>
+					<Col xs={12} md={4} className="d-flex align-items-center">
 						<Card.Img
 							variant="top"
 							src={project.coverImageUrl}
 							alt={project.title}
 							onClick={handleOpenModal}
-							className="img-fluid project-image"
-							style={{ width: "500px", height: "auto" }}
+							className="project-image"
+							style={{
+								width: "100%",
+								height: "auto",
+								objectFit: "cover",
+								cursor: "pointer",
+								borderRadius: "8px"
+							}}
 						/>
-					</div>
-					<div className="ml-4 flex-grow-1">
+					</Col>
+					<Col xs={12} md={8}>
+						<Link
+							to={`/projects/${project.id}`}
+							key={project.id}
+							style={{ textDecoration: "none", color: "inherit" }}
+						>
+							<h4 className="mt-2 mt-md-0">{project.title}</h4>
+						</Link>
 						<div className="mb-2">
-							<Card.Text>
-								<strong>募集職種:</strong>
-								<ul>
-									<li>{project.lookingFor}</li>
-								</ul>
-							</Card.Text>
+							<Badge bg="primary" className="mr-2">
+								{project.lookingFor}
+							</Badge>
+							<Badge bg="secondary">{project.hiringType}</Badge>
 						</div>
-						<div className="mb-2">
-							<Card.Text>
-								<strong>雇用形態:</strong>
-								<ul>
-									<li>{project.hiringType}</li>
-								</ul>
-							</Card.Text>
-						</div>
-						<div className="mt-2">
-							<Card.Text>
-								<strong>公開日: </strong>
-
-								<ul>
-									<li>{formatDate(project.publishedAt)}</li>
-								</ul>
-							</Card.Text>
-						</div>
-					</div>
-				</div>
-				<Row>
-					<Col>
-						<div className="mb-2">
-							<Card.Text>
-								<Description>
-									{expanded
-										? project.description
-										: project.description.slice(0, 200)}
-								</Description>
-							</Card.Text>
-						</div>
-						{project.description.length > 200 && (
+						<Card.Text className="text-muted mb-2">
+							{formatDate(project.publishedAt)}
+						</Card.Text>
+						<Card.Text>
+							<Description>
+								{expanded ? project.description : project.description.slice(0, 100)}
+							</Description>
+						</Card.Text>
+						{project.description.length > 100 && (
 							<Button
-								className="text-primary font-weight-bold"
+								className="text-primary font-weight-bold p-0"
 								variant="link"
 								onClick={toggleExpansion}
 							>
-								{expanded ? "閉じる" : "続きを表示する"}
+								{expanded ? "閉じる" : "続きを読む"}
 							</Button>
 						)}
 					</Col>
 				</Row>
 			</Card.Body>
-			<Modal
-				show={showModal}
-				onHide={handleCloseModal}
-				size="xl"
-				className="image-modal"
-			>
-				<Modal.Header closeButton>
-					<Modal.Title>{project.title}</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<Image
-						src={project.coverImageUrl}
-						alt={project.title}
-						className="original-image"
-						fluid
-					/>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleCloseModal}>
-						Close
-					</Button>
-				</Modal.Footer>
-			</Modal>
+			{/* Modal code */}
 		</Card>
 	);
 };

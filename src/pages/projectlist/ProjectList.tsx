@@ -51,7 +51,7 @@ const ProjectList: React.FC = () => {
 	return (
 		<Container fluid>
 			<Row>
-				<Col sm={9}>
+				<Col>
 					<Container>
 						<Row>
 							<Col>

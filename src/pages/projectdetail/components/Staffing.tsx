@@ -10,7 +10,6 @@ interface StaffingsProps {
 const Staffings: React.FC<StaffingsProps> = ({ staffings }) => {
   return (
     <>
-      <h3>メンバーの情報</h3>
       <Row>
         {staffings.map((staffing, index) => (
           <Col key={index} md={2}>
