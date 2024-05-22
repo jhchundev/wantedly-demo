@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
 	Container,
@@ -32,7 +32,7 @@ const ProjectLayout = ({ children }: { children: any }) => {
 	const navigate = useNavigate();
 	const initialFilter: ProjectFilterInput = {
 		keyword: new URLSearchParams(location.search).get("keyword") || "",
-		lookingFor: new URLSearchParams(location.search).get("lookingFor") || "",
+		lookingFor: new URLSearchParams(location.search).get("lookingFor") || ""
 	};
 
 	const [projectFilterInput, setProjectFilterInput] =
@@ -55,18 +55,13 @@ const ProjectLayout = ({ children }: { children: any }) => {
 	if (error) {
 		return <div>Error: {error.message}</div>;
 	}
+
 	return (
 		<>
 			<NavBar />
-			<Container fluid>
-				<Row>
-					<Col sm={3} className="bg-light">
-						<Search onSearch={handleSearch} />
-					</Col>
-					<Col sm={9}>
-						<Row></Row>
-						<ProjectList />
-					</Col>
+			<Container>
+				<Row className="justify-content-center">
+					<ProjectList />
 				</Row>
 			</Container>
 		</>
