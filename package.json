@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.12.3",
+    "@apollo/client": "^3.12.4",
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.2.0",
