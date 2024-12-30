@@ -19,7 +19,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "bootstrap": "^5.3.3",
     "graphql": "^16.10.0",
-    "html-react-parser": "^5.2.1",
+    "html-react-parser": "^5.2.2",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^19.0.0",
