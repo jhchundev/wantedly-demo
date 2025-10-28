@@ -10,7 +10,8 @@ import {
 import NavBar from "../../components/navbar/NavBar";
 import ProjectList from "./ProjectList";
 import { ProjectData, ProjectFilterInput } from "../../types/ProjectType";
-import { useLazyQuery, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client/react";
 import Search from "./components/Search";
 
 const GET_PROJECTS = gql`
