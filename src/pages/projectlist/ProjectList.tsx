@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useLazyQuery, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client/react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import Search from "./components/Search";

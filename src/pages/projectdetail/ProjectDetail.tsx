@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import {
 	Container,
 	Row,
@@ -10,7 +11,6 @@ import {
 	Modal,
 	Button,
 } from "react-bootstrap";
-import { gql } from "@apollo/client";
 import { ProjectDetailData } from "../../types/ProjectDetailType";
 import Staffings from "./components/Staffing";
 
