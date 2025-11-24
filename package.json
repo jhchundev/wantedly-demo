@@ -15,7 +15,7 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.2",
-    "@types/styled-components": "^5.1.35",
+    "@types/styled-components": "^5.1.36",
     "@vitejs/plugin-react": "^5.1.1",
     "bootstrap": "^5.3.8",
     "graphql": "^16.12.0",
